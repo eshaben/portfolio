@@ -1,36 +1,17 @@
-# Astro Starter Kit: Basics
+# Portfolio
+
+My personal portfolio site: projects and writing, built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com).
+
+Live at [eshaben.github.io/portfolio](https://eshaben.github.io/portfolio).
+
+## Getting started
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
+The dev server runs at `localhost:4321`.
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
@@ -41,6 +22,30 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+## Tailwind
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Styling uses Tailwind CSS v4, wired in via the `@tailwindcss/vite` plugin in `astro.config.mjs` (no separate Tailwind config file needed). Global styles live in `src/styles/global.css`.
+
+## Project structure
+
+```text
+/
+├── public/
+│   └── favicon.svg
+├── src
+│   ├── assets              # images and other static assets
+│   ├── components           # Astro components (nav, footer, cards, etc.)
+│   ├── content
+│   │   ├── projects        # project write-ups (content collection)
+│   │   └── writing         # blog posts (content collection)
+│   ├── content.config.ts   # content collection schemas
+│   ├── consts.ts           # site-wide values: title, tagline, nav links, contact info
+│   ├── layouts             # page layouts (base, project, writing)
+│   ├── pages
+│   │   ├── index.astro
+│   │   ├── projects/       # projects listing + [slug] detail page
+│   │   └── writing/        # writing listing + [slug] detail page
+│   └── styles
+│       └── global.css
+└── package.json
+```
