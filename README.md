@@ -31,7 +31,7 @@ Styling uses Tailwind CSS v4, wired in via the `@tailwindcss/vite` plugin in `as
 ```text
 /
 ├── public/
-│   └── favicon.svg
+│   └── favicon.png
 ├── src
 │   ├── assets              # images and other static assets
 │   ├── components           # Astro components (nav, footer, cards, etc.)
