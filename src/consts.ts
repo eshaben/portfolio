@@ -9,7 +9,7 @@ export const SITE = {
     "Documentation Engineer Lead with a background in software engineering and developer relations.",
   // Absolute URL of the deployed site (no trailing slash). Used for canonical
   // links and social preview tags.
-  url: "https://example.com", // TODO: Update to deployed website URL
+  url: "https://eshaben.github.io/portfolio",
 };
 
 // Contact + profile links. Set a value to null to hide that link everywhere.
