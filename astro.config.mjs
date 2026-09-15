@@ -7,7 +7,10 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   // Your deployed URL. Used to build absolute links (canonical, social tags,
   // sitemap). Update before deploying.
-  site: 'https://example.com',
+  site: 'https://eshaben.github.io',
+  // GitHub Pages serves a project repo (not a <username>.github.io repo) under
+  // a path matching the repo name, so every route needs this prefix.
+  base: '/portfolio',
 
   vite: {
     plugins: [tailwindcss()]

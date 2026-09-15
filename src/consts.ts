@@ -18,6 +18,16 @@ export const CONTACT = {
   linkedin: "https://www.linkedin.com/in/eshaben",
 };
 
+// Prefixes an internal, root-relative path (e.g. "/projects", "/#about")
+// with the site's base path, so links resolve correctly under whatever
+// `base` is configured in astro.config.mjs (currently "/portfolio"). Strip
+// any trailing slash first: BASE_URL isn't guaranteed to have one, and
+// `path` always supplies its own leading slash.
+export function withBase(path: string) {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  return path === "/" ? base || "/" : base + path;
+}
+
 // The persistent nav. `anchor: true` means it points at a section on the home
 // page (rendered as /#id); otherwise it's a real route.
 export const NAV_LINKS = [

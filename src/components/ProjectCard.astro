@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { withBase } from "../consts";
 
 // CollectionEntry<"projects"> is the type Astro generates from the schema in
 // content.config.ts — so `project.data.title` etc. are all type-checked.
@@ -11,7 +12,7 @@ const { title, description, tech } = project.data;
 ---
 
 <a
-  href={`/projects/${project.id}`}
+  href={withBase(`/projects/${project.id}`)}
   class="group block rounded-lg border border-line p-5 transition-colors hover:border-ink"
 >
   <h3 class="font-medium text-ink group-hover:text-accent">{title}</h3>
