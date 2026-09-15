@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import WritingCard from "../components/WritingCard.astro";
-import { CONTACT, SITE } from "../consts";
+import { CONTACT, SITE, withBase } from "../consts";
 
 // getCollection reads a content collection. The second argument filters out
 // entries — here, anything marked draft. It runs at build time.
@@ -38,7 +38,7 @@ const sectionHeading = "text-sm font-medium uppercase tracking-wider text-muted"
     <section id="projects" class="scroll-mt-20 border-t border-line py-14">
       <div class="flex items-baseline justify-between">
         <h2 class={sectionHeading}>Featured projects</h2>
-        <a class="text-sm text-muted hover:text-ink" href="/projects">
+        <a class="text-sm text-muted hover:text-ink" href={withBase("/projects")}>
           All projects &rarr;
         </a>
       </div>
@@ -59,7 +59,7 @@ const sectionHeading = "text-sm font-medium uppercase tracking-wider text-muted"
     <section id="writing-featured" class="scroll-mt-20 border-t border-line py-14">
       <div class="flex items-baseline justify-between">
         <h2 class={sectionHeading}>Featured writing</h2>
-        <a class="text-sm text-muted hover:text-ink" href="/writing">
+        <a class="text-sm text-muted hover:text-ink" href={withBase("/writing")}>
           All writing &rarr;
         </a>
       </div>

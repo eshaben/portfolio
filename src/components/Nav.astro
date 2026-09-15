@@ -1,10 +1,17 @@
 ---
-import { SITE, NAV_LINKS } from "../consts";
+import { SITE, NAV_LINKS, withBase } from "../consts";
 
 // Astro.url.pathname is the path of the page currently being rendered, e.g.
-// "/projects" or "/writing/some-post". We use it to highlight the section
-// you're in. Normalise a trailing slash so "/projects/" matches "/projects".
-const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+// "/projects" or "/writing/some-post" locally, but "/portfolio/projects" once
+// deployed. Strip the base path back off first so the rest of this logic can
+// keep comparing against the same root-relative paths NAV_LINKS uses.
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const pathname = base && Astro.url.pathname.startsWith(base)
+  ? Astro.url.pathname.slice(base.length) || "/"
+  : Astro.url.pathname;
+
+// Normalise a trailing slash so "/projects/" matches "/projects".
+const path = pathname.replace(/\/$/, "") || "/";
 
 function isActive(href: string) {
   if (href.startsWith("/#")) return false; // anchor links never show as active
@@ -20,14 +27,14 @@ function isActive(href: string) {
     class="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4"
     aria-label="Primary"
   >
-    <a href="/" class="font-medium tracking-tight text-ink">{SITE.title}</a>
+    <a href={withBase("/")} class="font-medium tracking-tight text-ink">{SITE.title}</a>
 
     <ul class="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
       {
         NAV_LINKS.map((link) => (
           <li>
             <a
-              href={link.href}
+              href={withBase(link.href)}
               aria-current={isActive(link.href) ? "page" : undefined}
               class="text-muted transition-colors hover:text-ink aria-[current=page]:text-ink aria-[current=page]:underline aria-[current=page]:underline-offset-4"
             >

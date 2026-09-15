@@ -1,7 +1,7 @@
 ---
 // Everything that belongs in <head>. Every page passes a title and description
 // so tab titles and social previews are correct per-page.
-import { SITE } from "../consts";
+import { SITE, withBase } from "../consts";
 import "../styles/global.css";
 
 interface Props {
@@ -18,7 +18,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? SITE.url);
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
 <meta name="generator" content={Astro.generator} />
 
 <title>{title}</title>
