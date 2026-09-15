@@ -9,7 +9,7 @@ draft: false
 
 So, what is content negotiation? In short, it means a server sends different content for the same URL depending on who's asking. Think serving JSON to an app and HTML to a browser. It's not a new idea, but it's found a new use case with AI agents: detecting AI clients and serving them a simplified Markdown version of a page instead of full HTML.
 
-Several companies have recently come out claiming that AI agents identify themselves via an `Accept: text/markdown` header — Sentry and Avail both wrote about their approach ([Sentry](https://cra.mr/optimizing-content-for-agents/), [Avail](https://docs.availproject.org/docs/ai-features#content-negotiation)) — so I decided to test that assumption directly. Claude is the primary AI tool I use day-to-day, so it's the main focus here — but I also captured headers from ChatGPT, Gemini, and other AI clients to see how broadly the assumption holds.
+Several companies have recently come out claiming that AI agents identify themselves via an `Accept: text/markdown` header. [Sentry](https://cra.mr/optimizing-content-for-agents/) and [Avail](https://docs.availproject.org/docs/ai-features#content-negotiation) both wrote about their approach, so I decided to test that assumption directly. Claude is the primary AI tool I use day-to-day, so it's the main focus here, but I also captured headers from ChatGPT, Gemini, and other AI clients to see how broadly the assumption holds.
 
 ## How Claude Retrieves Data
 
@@ -155,9 +155,9 @@ Use the following priority order when a request comes in:
 
 ### Clients That Cannot Be Reliably Detected
 
-- Codex CLI — fell back to curl, which is generic and indistinguishable from other curl requests
-- Copilot — sends a standard browser-like user-agent with no AI-specific identifier
-- Grok — sent multiple requests with generic browser user-agents, making detection unreliable
+- **Codex CLI** fell back to curl, which is generic and indistinguishable from other curl requests
+- **Copilot** sends a standard browser-like user-agent with no AI-specific identifier
+- **Grok** sent multiple requests with generic browser user-agents, making detection unreliable
 
 ## Conclusion
 

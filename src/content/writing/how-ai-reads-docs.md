@@ -22,13 +22,13 @@ The first three happen naturally: a user or tool finds and uses your docs with l
 
 Not all AI tools find your documentation the same way, and the difference matters more than most docs teams realize. These are the mechanisms worth understanding:
 
-- **Crawlers** — tools that systematically process your docs before any user interaction. There are two types:
+- **Crawlers**: Tools that systematically process your docs before any user interaction. There are two types:
 
-    - **Training crawlers** — companies like OpenAI, Anthropic, and Google crawl the web to build the datasets their models learn from. Your docs may end up in that training data, which is how an AI can "know" about your protocol without ever being explicitly pointed at your docs. This knowledge has a cutoff date though, meaning it can be outdated or incomplete. You can control whether training crawlers access your docs via robots.txt.
+    - **Training crawlers**: Companies like OpenAI, Anthropic, and Google crawl the web to build the datasets their models learn from. Your docs may end up in that training data, which is how an AI can "know" about your protocol without ever being explicitly pointed at your docs. This knowledge has a cutoff date though, meaning it can be outdated or incomplete. You can control whether training crawlers access your docs via robots.txt.
 
-    - **Proactive crawlers** — tools like Cursor and Perplexity proactively crawl and index docs sites, building a live index that they query in real time. When a developer asks a question, the tool pulls the most relevant content from your docs automatically, without the developer doing anything. This is systematic, persistent, and happens in the background.
+    - **Proactive crawlers**: Tools like Cursor and Perplexity proactively crawl and index docs sites, building a live index that they query in real time. When a developer asks a question, the tool pulls the most relevant content from your docs automatically, without the developer doing anything. This is systematic, persistent, and happens in the background.
 
-- **Reactive fetching** — some tools, like Claude, don't maintain a live index of your docs. Instead they retrieve content on demand, through web search or when a user shares a URL or triggers a web search. Nothing is stored or indexed beyond that interaction. Every conversation starts fresh.
+- **Reactive fetching**: Some tools, like Claude, don't maintain a live index of your docs. Instead they retrieve content on demand, through web search or when a user shares a URL or triggers a web search. Nothing is stored or indexed beyond that interaction. Every conversation starts fresh.
 
 Understanding which mechanism a tool uses matters because it determines how current, complete, and accessible your docs are to that tool, and ultimately to the developer using it.
 
@@ -51,13 +51,13 @@ You don't control how your content gets chunked or stored, but the quality and s
 
 **What you can do**:
 
-- **Maintain a sitemap** — ensures crawlers find all your content, not just what's prominently linked.
-- **Use clear, descriptive headings** — helps crawlers categorize content correctly when chunking.
-- **Write self-contained sections** — chunks don't always land on clean boundaries, so each section should make sense on its own.
-- **Keep a consistent URL structure** — helps crawlers understand the hierarchy of your content.
-- **Avoid JavaScript-heavy rendering** — some crawlers struggle with content that only loads client-side.
-- **Block training crawlers if needed** — via robots.txt if you don't want your docs used as training data.
-- **Publish an llms.txt file** — an emerging convention, not a guarantee: most crawlers and agents don't look for it yet, so its value depends on whether the specific tool you care about supports it.
+- **Maintain a sitemap**: Ensures crawlers find all your content, not just what's prominently linked.
+- **Use clear, descriptive headings**: Helps crawlers categorize content correctly when chunking.
+- **Write self-contained sections**: Chunks don't always land on clean boundaries, so each section should make sense on its own.
+- **Keep a consistent URL structure**: Helps crawlers understand the hierarchy of your content.
+- **Avoid JavaScript-heavy rendering**: Some crawlers struggle with content that only loads client-side.
+- **Block training crawlers if needed**: Via `robots.txt` if you don't want your docs used as training data.
+- **Publish an `llms.txt` file**: An emerging convention, not a guarantee: most crawlers and agents don't look for it yet, so its value depends on whether the specific tool you care about supports it.
 
 ## Optimizations for Fetches
 
@@ -69,8 +69,8 @@ That has a direct implication for how your docs should be written. Because the m
 
 **What you can do**:
 
-- **Write clearly and explicitly** — the model is literal, it won't infer what you meant.
-- **Avoid contradictions** — if your docs say two different things, the model may blend them or get confused.
-- **Front-load important information** — models tend to attend more strongly to the beginning and end of long content.
-- **Keep pages focused** — a page that covers one topic clearly is more useful than one that covers many topics loosely.
-- **Use consistent terminology** — switching between terms for the same concept confuses both humans and models.
+- **Write clearly and explicitly**: The model is literal, it won't infer what you meant.
+- **Avoid contradictions**: If your docs say two different things, the model may blend them or get confused.
+- **Front-load important information**: Models tend to attend more strongly to the beginning and end of long content.
+- **Keep pages focused**: A page that covers one topic clearly is more useful than one that covers many topics loosely.
+- **Use consistent terminology**: Switching between terms for the same concept confuses both humans and models.
