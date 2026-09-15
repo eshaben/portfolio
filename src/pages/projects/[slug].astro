@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from "astro:content";
+import ProjectLayout from "../../layouts/ProjectLayout.astro";
+
+// getStaticPaths tells Astro which pages to build for this dynamic route.
+// One page per project file; `params.slug` fills the [slug] in the filename,
+// and the entry is passed through as a prop so we don't re-fetch it below.
+export async function getStaticPaths() {
+  const projects = await getCollection("projects", ({ data }) => !data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+// render() compiles the Markdown body into a component we can place in the page.
+const { Content } = await render(project);
+---
+
+<ProjectLayout data={project.data}>
+  <Content />
+</ProjectLayout>

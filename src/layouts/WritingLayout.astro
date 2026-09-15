@@ -1,0 +1,59 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  data: CollectionEntry<"writing">["data"];
+}
+const { data } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, canonicalUrl } = data;
+---
+
+<BaseLayout title={`${title} — Writing`} description={description}>
+  <article id="top" class="mx-auto max-w-3xl px-6 py-12 md:py-16">
+    <header class="mb-10">
+      <a
+        href="/writing"
+        class="text-sm text-muted transition-colors hover:text-ink"
+      >
+        &larr; All writing
+      </a>
+      <h1 class="mt-4 text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+        {title}
+      </h1>
+      <p class="mt-3 text-sm text-muted">
+        <FormattedDate date={pubDate} />
+        {
+          updatedDate && (
+            <span> · Updated <FormattedDate date={updatedDate} /></span>
+          )
+        }
+        {tags.length > 0 && <span> · {tags.join(", ")}</span>}
+      </p>
+      {
+        canonicalUrl && (
+          <p class="mt-2 text-sm text-muted">
+            Originally published at{" "}
+            <a class="underline hover:text-ink" href={canonicalUrl}>
+              {new URL(canonicalUrl).hostname}
+            </a>
+          </p>
+        )
+      }
+    </header>
+
+    <!-- `prose` (from @tailwindcss/typography) styles all the rendered
+         Markdown inside it. `prose-neutral` picks the grey palette. -->
+    <div class="prose prose-neutral max-w-none">
+      <slot />
+    </div>
+
+    <a
+      href="#top"
+      class="mt-10 inline-block text-sm text-muted transition-colors hover:text-ink"
+    >
+      &uarr; Back to top
+    </a>
+  </article>
+</BaseLayout>

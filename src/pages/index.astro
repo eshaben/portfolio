@@ -1,11 +1,124 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import WritingCard from "../components/WritingCard.astro";
+import { CONTACT, SITE } from "../consts";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// getCollection reads a content collection. The second argument filters out
+// entries — here, anything marked draft. It runs at build time.
+const featuredProjects = (
+  await getCollection("projects", ({ data }) => !data.draft)
+)
+  .filter((p) => p.data.featured)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const featuredWriting = (await getCollection("writing", ({ data }) => !data.draft))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const sectionHeading = "text-sm font-medium uppercase tracking-wider text-muted";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title={SITE.title}>
+  <div class="mx-auto max-w-4xl px-6">
+    <!-- Hero -->
+    <section class="md:py-10">
+      <h1 class="text-4xl font-semibold tracking-tight text-ink md:text-5xl">
+        {SITE.title}
+      </h1>
+      <p class="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+        {SITE.tagline}
+      </p>
+    </section>
+
+    <!-- Featured projects -->
+    <section id="projects" class="scroll-mt-20 border-t border-line py-14">
+      <div class="flex items-baseline justify-between">
+        <h2 class={sectionHeading}>Featured projects</h2>
+        <a class="text-sm text-muted hover:text-ink" href="/projects">
+          All projects &rarr;
+        </a>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {featuredProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+      {
+        featuredProjects.length === 0 && (
+          <p class="mt-6 text-sm text-muted">
+            No featured projects yet. Set <code>featured: true</code> in a file
+            under <code>src/content/projects/</code>.
+          </p>
+        )
+      }
+    </section>
+
+    <!-- Featured writing -->
+    <section id="writing-featured" class="scroll-mt-20 border-t border-line py-14">
+      <div class="flex items-baseline justify-between">
+        <h2 class={sectionHeading}>Featured writing</h2>
+        <a class="text-sm text-muted hover:text-ink" href="/writing">
+          All writing &rarr;
+        </a>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {featuredWriting.map((post) => <WritingCard post={post} />)}
+      </div>
+      {
+        featuredWriting.length === 0 && (
+          <p class="mt-6 text-sm text-muted">
+            No featured writing yet. Set <code>featured: true</code> in a file
+            under <code>src/content/writing/</code>.
+          </p>
+        )
+      }
+    </section>
+
+    <!-- About -->
+    <section id="about" class="scroll-mt-20 border-t border-line py-14">
+      <h2 class={sectionHeading}>About</h2>
+      <div class="mt-6 max-w-xl space-y-4 leading-relaxed text-muted">
+        <p>
+          Hi, I'm Erin! 👋
+          <br><br>
+          I'm a Documentation Engineer Lead with a background in software engineering and developer relations. I came into tech through a coding bootcamp with no prior coding experience, and spent years writing code, debugging at odd hours, and slowly getting good at it as a software engineer before feeling the pull toward developer relations.
+          <br><br>
+          That pull came from remembering exactly what it felt like to be stuck, staring at docs that didn't answer the question I actually had, and wishing someone had just made it easier. So I decided to be that someone. That instinct still drives everything I do, and it's how I try to lead now too: by example, and by genuinely showing up for the people on my team.
+          <br><br>
+          These days I'm going after that same fix at a bigger scale, building documentation and knowledge systems that make building easier, for people and, increasingly, for AI.
+          <br><br>
+          In my free time, I'm probably being dragged around the neighborhood by my two dogs, showing up as the fun aunt, sweating through a pilates class, or refusing to put down whatever book I'm currently obsessed with (most likely a thriller).
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="scroll-mt-20 border-t border-line py-14">
+      <h2 class={sectionHeading}>Contact</h2>
+      <ul class="mt-6 space-y-2 text-muted">
+        {
+          CONTACT.github && (
+            <li>
+              GitHub:{" "}
+              <a class="text-accent underline underline-offset-2" href={CONTACT.github}>
+                {CONTACT.github.replace("https://", "")}
+              </a>
+            </li>
+          )
+        }
+        {
+          CONTACT.linkedin && (
+            <li>
+              LinkedIn:{" "}
+              <a class="text-accent underline underline-offset-2" href={CONTACT.linkedin}>
+                {CONTACT.linkedin.replace("https://", "")}
+              </a>
+            </li>
+          )
+        }
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

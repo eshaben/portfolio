@@ -1,0 +1,16 @@
+---
+import { SITE, CONTACT } from "../consts";
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line">
+  <div
+    class="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-2 px-6 py-8 text-sm text-muted"
+  >
+    <p>&copy; {year} {SITE.title}</p>
+    <p class="flex gap-4">
+      {CONTACT.github && <a class="hover:text-ink" href={CONTACT.github}>GitHub</a>}
+      {CONTACT.linkedin && <a class="hover:text-ink" href={CONTACT.linkedin}>LinkedIn</a>}
+    </p>
+  </div>
+</footer>

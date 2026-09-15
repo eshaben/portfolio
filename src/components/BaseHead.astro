@@ -1,0 +1,32 @@
+---
+// Everything that belongs in <head>. Every page passes a title and description
+// so tab titles and social previews are correct per-page.
+import { SITE } from "../consts";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = SITE.tagline } = Astro.props;
+
+// Astro.site comes from the `site` option in astro.config.mjs; Astro.url is the
+// current page. Together they build an absolute canonical URL.
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? SITE.url);
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta name="twitter:card" content="summary" />

@@ -1,0 +1,41 @@
+---
+import { SITE, NAV_LINKS } from "../consts";
+
+// Astro.url.pathname is the path of the page currently being rendered, e.g.
+// "/projects" or "/writing/some-post". We use it to highlight the section
+// you're in. Normalise a trailing slash so "/projects/" matches "/projects".
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+function isActive(href: string) {
+  if (href.startsWith("/#")) return false; // anchor links never show as active
+  if (href === "/") return path === "/";
+  return path === href || path.startsWith(href + "/");
+}
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur"
+>
+  <nav
+    class="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4"
+    aria-label="Primary"
+  >
+    <a href="/" class="font-medium tracking-tight text-ink">{SITE.title}</a>
+
+    <ul class="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
+      {
+        NAV_LINKS.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={isActive(link.href) ? "page" : undefined}
+              class="text-muted transition-colors hover:text-ink aria-[current=page]:text-ink aria-[current=page]:underline aria-[current=page]:underline-offset-4"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
